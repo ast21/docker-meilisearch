@@ -1,0 +1,22 @@
+version: '3'
+services:
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    volumes:
+      - ./data.ms:/data.ms
+    environment:
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - LETSENCRYPT_HOST=${VIRTUAL_HOST}
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+    networks:
+      - front
+      - databases
+    restart: always
+
+networks:
+  front:
+    external:
+      name: front
+  databases:
+    external:
+      name: databases
